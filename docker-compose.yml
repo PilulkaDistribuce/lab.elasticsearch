@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+      BLACKFIRE_SERVER_ID: "ab89aae8-a7de-4be5-9e5d-02f6999735d4"
+      BLACKFIRE_SERVER_TOKEN: "c9694b4b341aad929bd74a5c5a8c5c59b546c81c52d130d7693b42dbbcdcf119"
+    networks:
+      - pilulka
+
+  php:
+    image: krizius/pilulka-php-apache
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - .:/var/www
+    environment:
+      XDEBUG_CONFIG: 'remote_enable=0'
+    networks:
+      - pilulka
+    ports:
+      - 7080:80
+    restart: always
+
+  elasticsearch:
+    image: krizius/docker-elasticsearch
+    environment:
+      - cluster.name=pilulka-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #  mem_limit: 2g
+    networks:
+      - pilulka
+    ports:
+      - 19200:9200
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.6.11
+#    volumes:
+#      - ./docker/kibana/config:/etc/kibana
+    networks:
+      - pilulka
+    ports:
+      - 15601:5601
+
+networks:
+  pilulka:
+    driver: bridge
