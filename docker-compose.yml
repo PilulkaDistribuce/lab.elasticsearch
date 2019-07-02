@@ -41,8 +41,6 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:5.6.11
-#    volumes:
-#      - ./docker/kibana/config:/etc/kibana
     networks:
       - pilulka
     ports:
