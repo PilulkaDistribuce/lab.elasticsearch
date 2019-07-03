@@ -37,7 +37,10 @@ class ViewSearchResultActionInterface implements ActionInterface
             return $this->twig->render(
                 'search/search-result.twig',
                 [
-                    'results' => $this->searchService->execute($request->getQueryParams()['term'] ?? '')
+                    'result' => $this->searchService->execute(
+                        $request->getQueryParams()['term'] ?? '',
+                            $request->getQueryParams()['index'] ?? ''
+                    )
                 ]
             );
         }));

@@ -1,5 +1,25 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
+<div class="row">
+
+
+    {% for item in result.items %}
+    <div class="col-3">
+        <div class="card">
+            <img class="card-img-top" src="https://www.pilulka.sk{{ item.image }}?d=x200" alt="{{ item.sellingName ?? item.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.sellingName ?? item.name }}</h5>
+                <p class="card-text">{{ item.content.short | raw }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="col-12">
+        <p>Found: {{ result.total }} items.</p>
+    </div>
+
+</div>
 
 {% endblock %}
