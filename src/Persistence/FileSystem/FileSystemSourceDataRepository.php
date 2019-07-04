@@ -49,7 +49,7 @@ class FileSystemSourceDataRepository implements SourceDataRepository
             $queryPath = $this->configDir . '/' . $directory . '/query.php';
             yield [
                 'index' => $directory,
-                'mapping' => file_exists($mappingPath) ? json_decode($mappingPath, true) : null,
+                'mapping' => file_exists($mappingPath) ? json_decode(file_get_contents($mappingPath), true) : null,
                 'query' => require $queryPath,
             ];
         }

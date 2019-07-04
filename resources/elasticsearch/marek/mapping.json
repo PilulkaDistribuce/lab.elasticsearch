@@ -1,0 +1,249 @@
+{
+  "settings": {
+    "index.number_of_shards": "5",
+    "index.number_of_replicas": "0",
+    "analysis": {
+      "analyzer": {
+        "hunspell": {
+          "type": "custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer": "standard",
+          "filter": [
+            "cs_CZ",
+            "lowercase",
+            "stopwords_CZ",
+            "icu_folding",
+            "remove_duplicities"
+          ]
+        },
+        "lowercase": {
+          "type": "custom",
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_folding"
+          ]
+        }
+      },
+      "filter": {
+        "stopwords_CZ": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_"
+          ],
+          "ignore_case": true
+        },
+        "cs_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ",
+          "dedup": true,
+          "recursion_level": 0
+        },
+        "remove_duplicities": {
+          "type": "unique",
+          "only_on_same_position": false
+        }
+      }
+    }
+  },
+  "mappings": {
+    "marek": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "index": false
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "hunspell",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "index": false
+            },
+            "hunspell": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "lowercase": {
+              "type": "text",
+              "analyzer": "lowercase"
+            }
+          }
+        },
+        "sellingName": {
+          "type": "text",
+          "analyzer": "hunspell",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "index": false
+            },
+            "hunspell": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "lowercase": {
+              "type": "text",
+              "analyzer": "lowercase"
+            }
+          }
+        },
+        "keywords": {
+          "type": "text",
+          "analyzer": "hunspell",
+          "fields": {
+            "hunspell": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "lowercase": {
+              "type": "text",
+              "analyzer": "lowercase"
+            }
+          }
+        },
+        "price": {
+          "type": "float"
+        },
+        "priceNoVat": {
+          "type": "float"
+        },
+        "priceDiscount": {
+          "type": "float"
+        },
+        "absoluteDiscount": {
+          "type": "float"
+        },
+        "vat": {
+          "type": "float"
+        },
+        "averageRating": {
+          "type": "float"
+        },
+        "availability": {
+          "type": "text"
+        },
+        "availabilityPeriod": {
+          "type": "integer"
+        },
+        "amountInStock": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "text",
+          "index": "no"
+        },
+        "advantage": {
+          "type": "long"
+        },
+        "categoryBestsellerScore": {
+          "type": "long"
+        },
+        "basicAdvantage": {
+          "type": "long"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "updatedAt": {
+          "type": "integer"
+        },
+        "shopUrlPath": {
+          "type": "text"
+        },
+        "attributes": {
+          "properties": {
+            "ean": {
+              "type": "text"
+            },
+            "sukl": {
+              "type": "text"
+            },
+            "rrp": {
+              "type": "float"
+            },
+            "isInBonus": {
+              "type": "boolean"
+            },
+            "isInTv": {
+              "type": "boolean"
+            },
+            "isRecommended": {
+              "type": "boolean"
+            },
+            "isRegulated": {
+              "type": "boolean"
+            },
+            "isInAction": {
+              "type": "boolean"
+            },
+            "isFreeSale": {
+              "type": "boolean"
+            },
+            "isGift": {
+              "type": "boolean"
+            },
+            "isGiftReward": {
+              "type": "boolean"
+            },
+            "isIgnoredByGoogle": {
+              "type": "boolean"
+            },
+            "isIgnoredByEdenred": {
+              "type": "boolean"
+            },
+            "isIgnoredBySodexo": {
+              "type": "boolean"
+            },
+            "hasFreeDelivery": {
+              "type": "boolean"
+            },
+            "hasExtendedWarranty": {
+              "type": "boolean"
+            },
+            "isPilulkaCar": {
+              "type": "boolean"
+            },
+            "isPharmacyPickupAvailable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "content": {
+          "properties": {
+            "short": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "long": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "spc": {
+              "type": "text",
+              "analyzer": "hunspell"
+            },
+            "gift": {
+              "type": "text",
+              "analyzer": "hunspell"
+            }
+          }
+        }
+      }
+    }
+  }
+}
