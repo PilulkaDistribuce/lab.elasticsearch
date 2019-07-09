@@ -24,8 +24,8 @@ $fields = [
 ];
 
 return [
-    'index' => 'marek',
-    'type' => 'marek',
+    'index' => 'current',
+    'type' => 'current',
     'body' => [
         'query' => [
             'bool' => [
