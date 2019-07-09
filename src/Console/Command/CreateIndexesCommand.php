@@ -40,7 +40,12 @@ class CreateIndexesCommand extends Command
             $this->storage->deleteIndex($sourceConfig['index']);
             if(isset($sourceConfig['mapping'])) {
                 $output->writeln("Creating mapping: {$sourceConfig['index']}.");
-                $this->storage->createMapping($sourceConfig['mapping']);
+                $blabla = [
+                    'index' => $sourceConfig['index'],
+                    'timeout' => '300s',
+                    'body' => $sourceConfig['mapping'],
+                ];
+                $this->storage->createMapping($blabla);
             }
             $output->writeln("Adding items to index: {$sourceConfig['index']}.");
             $i = 1;
