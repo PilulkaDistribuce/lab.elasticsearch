@@ -21,7 +21,7 @@
         "lowercase": {
           "type": "custom",
           "char_filter": [
-            "html_strip"
+            "html_s trip"
           ],
           "tokenizer": "standard",
           "filter": [

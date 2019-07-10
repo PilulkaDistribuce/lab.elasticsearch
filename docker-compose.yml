@@ -46,6 +46,18 @@ services:
     ports:
       - 15601:5601
 
+  mysql:
+    image: mariadb:10.2
+    volumes:
+      - ./storage/mysql/data:/etc/mysql
+      - ./storage/mysql/dumps:/dumps
+      - ./storage/mysql/init:/docker-entrypoint-initdb.d/
+    environment:
+      - MYSQL_DATABASE=ipilulka_sk
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - pilulka
+
 networks:
   pilulka:
     driver: bridge
