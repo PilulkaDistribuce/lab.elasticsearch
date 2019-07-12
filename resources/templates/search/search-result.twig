@@ -9,8 +9,9 @@
         <div class="card">
             <img class="card-img-top" src="https://www.pilulka.sk/assets/product/image/{{ item.id }}?d=x200" alt="{{ item.sellingName ?? item.name }}">
             <div class="card-body">
-                <h5 class="card-title">{{ item.sellingName ?? item.name }}</h5>
+                <h5 class="card-title">({{ item.id }}) - {{ item.sellingName ?? item.name }}</h5>
                 <p class="card-text">{{ item.content.short | raw }}</p>
+                <p class="card-text">Score: {{ item.score }} | {{ item.eScore }}</p>
             </div>
         </div>
     </div>

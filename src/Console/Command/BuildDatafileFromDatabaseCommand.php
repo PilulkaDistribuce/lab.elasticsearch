@@ -79,11 +79,16 @@ class BuildDatafileFromDatabaseCommand extends Command
                 'longText' => strip_tags($product->pr_additional_content['selling'] ?: ''),
                 'image' => $this->getImage($product),
                 'keywords' => [],
+                'score' => (int)$product['category_bestseller_score'],
             ];
             if ($brand = $product->pr_brand['name']) $payload['keywords'][] = $brand;
             if ($productLine = $product->pr_product_line['name']) $payload['keywords'][] = $productLine;
+            if ($manufacturer = $product->pr_manufacturer['name']) $payload['keywords'][] = $manufacturer;
             foreach ($product->pr_product_category(['pr_category.is_active' => true]) as $ppc) {
                 $payload['keywords'][] = $ppc->pr_category['name'];
+            }
+            foreach ($product->pr_keyword() as $keyword) {
+                $payload['keywords'][] = $keyword['value'];
             }
             yield $payload;
         }

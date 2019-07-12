@@ -64,12 +64,11 @@
       "filter": {
         "czech_hunspell": {
           "type": "hunspell",
-          "locale": "cs_CZ"
+          "locale": "sk_SK"
         },
         "czech_stop": {
           "type": "stop",
           "stopwords": [
-            "že",
             "_czech_"
           ]
         },
@@ -110,7 +109,7 @@
           "fields": {
             "hunspell": {
               "type": "text",
-              "analyzer": "app_hunspell_stopwords"
+              "analyzer": "app_hunspell"
             },
             "shingle": {
               "type": "text",
@@ -123,8 +122,13 @@
           }
         },
         "keywords": {
-          "type": "text",
-          "analyzer": "app_shingle"
+          "type": "keyword",
+          "fields": {
+            "shingle": {
+              "type": "text",
+              "analyzer": "app_shingle"
+            }
+          }
         },
         "shortText": {
           "type": "text",

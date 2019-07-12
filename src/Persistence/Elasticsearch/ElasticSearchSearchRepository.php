@@ -42,6 +42,7 @@ class ElasticSearchSearchRepository implements SearchRepository
             'total' => $results['hits']['total'],
             'items' => array_map(
                 function ($doc) {
+                    $doc['_source']['eScore'] = $doc['_score'];
                     return $doc['_source'];
                 },
                 $results['hits']['hits']
