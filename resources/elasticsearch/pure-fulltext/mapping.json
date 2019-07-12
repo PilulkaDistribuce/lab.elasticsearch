@@ -1,0 +1,140 @@
+{
+  "settings": {
+    "number_of_shards": "1",
+    "number_of_replicas": "0",
+    "analysis": {
+      "analyzer": {
+        "app_hunspell_stopwords": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "min_length",
+            "czech_stop",
+            "czech_hunspell",
+            "lowercase",
+            "czech_stop",
+            "icu_folding",
+            "unique_on_same_position"
+          ]
+        },
+        "app_hunspell": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "czech_hunspell",
+            "lowercase",
+            "icu_folding",
+            "unique_on_same_position"
+          ]
+        },
+        "app_lowercase": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_folding"
+          ]
+        },
+        "app_keyword": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "lowercase",
+            "icu_folding"
+          ]
+        },
+        "app_shingle":{
+          "tokenizer":"standard",
+          "filter": [
+            "czech_hunspell",
+            "lowercase",
+            "icu_folding",
+            "filter_shingle"
+          ]
+        },
+        "app_ngram":{
+          "tokenizer":"app_ngram",
+          "filter": [
+            "czech_hunspell",
+            "lowercase",
+            "icu_folding"
+          ]
+        }
+      },
+      "filter": {
+        "czech_hunspell": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "czech_stop": {
+          "type": "stop",
+          "stopwords": [
+            "že",
+            "_czech_"
+          ]
+        },
+        "unique_on_same_position": {
+          "type": "unique",
+          "only_on_same_position": true
+        },
+        "min_length": {
+          "type": "length",
+          "min": 2
+        },
+        "filter_shingle": {
+          "type":"shingle",
+          "max_shingle_size": 4,
+          "min_shingle_size": 2,
+          "output_unigrams": false,
+          "output_unigrams_if_no_shingles": true
+        }
+      },
+      "tokenizer": {
+        "app_ngram": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 5,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "pure-fulltext": {
+      "properties": {
+        "name": {
+          "type": "text",
+          "fields": {
+            "hunspell": {
+              "type": "text",
+              "analyzer": "app_hunspell_stopwords"
+            },
+            "shingle": {
+              "type": "text",
+              "analyzer": "app_shingle"
+            },
+            "ngram": {
+              "type": "text",
+              "analyzer": "app_ngram"
+            }
+          }
+        },
+        "keywords": {
+          "type": "text",
+          "analyzer": "app_shingle"
+        },
+        "shortText": {
+          "type": "text",
+          "analyzer": "app_hunspell_stopwords"
+        },
+        "longText": {
+          "type": "text",
+          "analyzer": "app_hunspell_stopwords"
+        }
+      }
+    }
+  }
+}

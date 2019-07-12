@@ -37,7 +37,7 @@ class BuildDatafileFromDatabaseCommand extends Command
         foreach ($this->getPayloads() as $payload) {
             $stub['_id'] = $payload['id'];
             $stub['_source'] = $payload;
-            fputs($file, json_encode($stub));
+            fputs($file, json_encode($stub) . "\n");
             $output->writeln(sprintf("%d. Added product: %s", $i++, $payload['name']));
         }
         if ($file) fclose($file);
