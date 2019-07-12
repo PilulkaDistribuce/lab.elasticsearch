@@ -5,4 +5,5 @@ use Pilulka\Lab\Elasticsearch\Console\Command;
 
 return [
     Command\CreateIndexesCommand::class,
+    Command\BuildDatafileFromDatabaseCommand::class,
 ];
