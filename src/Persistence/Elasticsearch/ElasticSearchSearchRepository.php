@@ -46,7 +46,7 @@ class ElasticSearchSearchRepository implements SearchRepository
                     return $doc['_source'];
                 },
                 $results['hits']['hits']
-            ),
+            )
         ];
     }
 

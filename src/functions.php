@@ -15,19 +15,22 @@ if (!function_exists('searchQueryString')) {
     {
         $parts = explode(' ', $string);
         $partsCount = count($parts);
-        $first = null;
-        $or = [];
+
+        $stopKey = null;
+        $search = '';
         for ($i = $partsCount; $i > 0; $i--) {
             $index = $partsCount - $i;
-            if ($index == 0) {
-                $first = $parts[$index] . "^{$i}~2";
-            } else {
-                $or[] = $parts[$index] . "^{$i}~2";
+            $value = $parts[$index];
+            if($index == 0) {
+                $search .= "{$value}^{$i}~2";
+                continue;
             }
+            if(is_numeric($value) || strlen($value) <= 2) {
+                $search .= " AND {$value}";
+                continue;
+            }
+            $search .= " OR {$value}^{$i}~2";
         }
-        $search = $first;
-        if($or) $search .= ' OR (' . implode(' AND ', $or) . ')';
-//        var_dump($search);die;
         return $search;
     }
 }

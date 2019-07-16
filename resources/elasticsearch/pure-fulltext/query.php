@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-
 $sort['_script'] = [
     'type' => 'number',
     'script' => [
@@ -12,7 +11,6 @@ $sort['_script'] = [
 ];
 
 $sort['_score'] = ['order' => 'desc'];
-
 
 return [
     'index' => 'pure-fulltext',
