@@ -34,6 +34,8 @@ services:
         soft: -1
         hard: -1
     #  mem_limit: 2g
+    volumes:
+      - ./resources/stop-words:/usr/share/elasticsearch/config/stop-words
     networks:
       - pilulka
     ports:

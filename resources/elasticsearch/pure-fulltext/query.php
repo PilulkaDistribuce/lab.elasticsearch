@@ -19,19 +19,32 @@ return [
     'type' => 'pure-fulltext',
     'body' => [
         'query' => [
-            'multi_match' => [
-                'query' => searchTerm(),
-                'fields' => [
-                    "name.hunspell",
-                    "name.shingle",
-//                    "name.ngram^0.1",
-                    "keywords^2",
-                    "keywords.shingle",
-                    "longText^0.5",
-//                    "shortText^0.5"
+            'bool' => [
+                'should' => [
+                    [
+                        'query_string' => [
+                            'fields' => ['name.hunspell'],
+                            'query' => searchQueryString(searchTerm()),
+                            'analyzer' => 'app_hunspell_unique',
+                        ]
+                    ],
+                    [
+                        'match' => [
+                            'longText' => [
+                                'query' => searchTerm(),
+                                'boost' => 0.1,
+                            ]
+                        ]
+                    ],
+                    [
+                        'match' => [
+                            'keywords' => [
+                                'query' => searchTerm(),
+                                'boost' => 10,
+                            ]
+                        ]
+                    ],
                 ],
-                "type" => "most_fields",
-                'fuzziness' => 2
             ]
         ],
         'sort' => $sort,

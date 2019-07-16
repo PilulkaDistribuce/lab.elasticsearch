@@ -17,14 +17,15 @@
             "unique_on_same_position"
           ]
         },
-        "app_hunspell": {
+        "app_hunspell_unique": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
+            "czech_stop",
             "czech_hunspell",
             "lowercase",
             "icu_folding",
-            "unique_on_same_position"
+            "unique"
           ]
         },
         "app_lowercase": {
@@ -68,9 +69,8 @@
         },
         "czech_stop": {
           "type": "stop",
-          "stopwords": [
-            "_czech_"
-          ]
+          "stopwords_path": "stop-words/sk_SK.txt",
+          "ignore_case": true
         },
         "unique_on_same_position": {
           "type": "unique",
@@ -109,7 +109,7 @@
           "fields": {
             "hunspell": {
               "type": "text",
-              "analyzer": "app_hunspell"
+              "analyzer": "app_hunspell_unique"
             },
             "shingle": {
               "type": "text",
@@ -122,7 +122,8 @@
           }
         },
         "keywords": {
-          "type": "keyword",
+          "type": "text",
+          "analyzer": "app_keyword",
           "fields": {
             "shingle": {
               "type": "text",
